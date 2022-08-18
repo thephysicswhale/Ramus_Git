@@ -1,4 +1,5 @@
 use crate::Repository;
+use crate::Signature;
 
 /*
 * Disclaimer !!!
@@ -26,7 +27,7 @@ fn normal_merge(
     let result_tree = repo.find_tree(idx.write_tree_to(repo)?)?;
     // now create the merge commit
     let msg = format!("Merge: {} into {}", remote.id(), local.id());
-    let sig = repo.signature()?;
+    let sig = Signature::now("Ramus_Git", "<>")?;
     let local_commit = repo.find_commit(local.id())?;
     let remote_commit = repo.find_commit(remote.id())?;
     // Do our merge commit and set current branch head to that commit.

@@ -1,4 +1,4 @@
-use git2::{Repository, RepositoryInitOptions, FetchOptions, RemoteCallbacks, Cred, IndexAddOption, PushOptions};
+use git2::{Repository, RepositoryInitOptions, FetchOptions, RemoteCallbacks, Cred, IndexAddOption, PushOptions, Signature};
 use merge::do_merge;
 use fltk::{app, button::Button, frame::Frame, prelude::*, window::Window, enums::Color, input::Input, group::Flex};
 use std::{env, path::PathBuf, fs::File, io::Write};
@@ -49,7 +49,7 @@ fn sync_to_repo(path :&PathBuf, token :&String) {
 
     //Commit
     let commit_tree = index.write_tree().expect("Failed to write a tree");
-    let sig = repo.signature().unwrap();
+    let sig = Signature::now("Ramus_Git", "<>").unwrap();
     let head = repo.head().unwrap().target().unwrap();
     let parent = repo.find_commit(head).expect("Failed to find you father LOL");
     repo.commit(Some("HEAD"), &sig, &sig, "Ramus_Git Commit", &repo.find_tree(commit_tree).unwrap(),
