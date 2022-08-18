@@ -49,7 +49,7 @@ fn sync_to_repo(path :&PathBuf, token :&String) {
 
     //Commit
     let commit_tree = index.write_tree().expect("Failed to write a tree");
-    let sig = Signature::now("Ramus_Git", "<>").unwrap();
+    let sig = Signature::now("Ramus_Git", "_@_").unwrap();
     let head = repo.head().unwrap().target().unwrap();
     let parent = repo.find_commit(head).expect("Failed to find you father LOL");
     repo.commit(Some("HEAD"), &sig, &sig, "Ramus_Git Commit", &repo.find_tree(commit_tree).unwrap(),
